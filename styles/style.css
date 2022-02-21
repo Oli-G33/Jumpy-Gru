@@ -1,0 +1,18 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0px;
+  background-color:gold;
+  background-size:50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas {
+    background-color: blue;
+    border: 20px solid #32a1ce;
+}
