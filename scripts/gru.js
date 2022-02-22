@@ -1,10 +1,10 @@
 class Player {
     constructor (gameInstance) {
       this.game = gameInstance;
-      this.x = 300;
-      this.y = 150;
-      this.width = 25;
-      this.height = 25;
+      this.x = 700;
+      this.y = 832.5;
+      this.width = 69.2;
+      this.height = 69.2;
     }
   
     draw () {
@@ -15,7 +15,7 @@ class Player {
     }
   }
   
-  const player = new Player (0,0);
+  const player = new Player;
   
  
   
