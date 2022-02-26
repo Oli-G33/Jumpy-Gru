@@ -72,6 +72,10 @@ class Game {
         this.score -=1;
       }
       }
+      
+    for (const spell of this.spells){
+      this.spells.runLogic();
+    }
     
 }
 
