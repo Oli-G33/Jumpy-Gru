@@ -18,18 +18,23 @@ class Game {
       switch (code) {
         case 'ArrowUp':
           this.player.y -= 69.2;
+          event.preventDefault();
           break;
         case 'ArrowDown':
           this.player.y += 69.2;
+          event.preventDefault();
           break;
         case 'ArrowRight':
           this.player.x += 69.2;
+          event.preventDefault();
           break;
         case 'ArrowLeft':
           this.player.x -= 69.2;
+          event.preventDefault();
           break;
         case 'Space':
           this.fireSpell();
+          event.preventDefault();
           break;
       }
       
@@ -73,10 +78,21 @@ class Game {
       }
       }
       
-    for (const spell of this.spells){
-      this.spells.runLogic();
+    for (const spell of this.spells) {
+      spell.runLogic();
+
+      for (const vehicle of this.traffic) {
+
+      const crash = vehicle.checkIntersection(spell);
+
+      if (crash) {
+        const indexOfVehicle= this.traffic.indexOf(vehicle);
+        this.traffic.splice(indexOfVehicle, 1);
+        const indexOfSpell= this.spells.indexOf(vehicle);
+        this.spells.splice(indexOfSpell, 1);
+      }
     }
-    
+  }
 }
 
 

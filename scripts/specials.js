@@ -3,8 +3,8 @@ class Spell {
         this.game = gameInstance;
         this.x = x;
         this.y = y;
-        this.width = 20;
-        this.height = 5;
+        this.width = 5;
+        this.height = 10;
     }
 
     runLogic() {
