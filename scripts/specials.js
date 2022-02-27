@@ -8,7 +8,7 @@ class Spell {
     }
 
     runLogic() {
-        this.y -= 1.5;
+        this.y -= 4;
     }
 
     draw () {

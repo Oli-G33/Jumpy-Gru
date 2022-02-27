@@ -6,11 +6,28 @@
     <link href="../Styles/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <canvas width="1500" height="900"></canvas>
-    <script src="../scripts/gru.js"></script>
-    <script src="../scripts/specials.js"></script>
-    <script src="../scripts/vehicles.js"></script>
-    <script src="../scripts/game.js"></script>
-    <script src="../scripts/script.js"></script>
+    
+ 
+
+    <div class="screen" id="start-screen">
+      <h1>Jumpy Gru</h1>
+      <button>Start Game</button>
+    </div>
+
+    <div class="screen" id="game-screen" style="display: none;">
+      <canvas width="1500" height="900"></canvas>
+    </div>
+
+    <div class="screen" id="game-over-screen" style="display: none;" >
+      <h3>Game Over!</h3>
+      <button>Try again</button>
+    </div>
+   
+         
+    <script src="/scripts/gru.js"></script>
+    <script src="/scripts/specials.js"></script>
+    <script src="/scripts/vehicles.js"></script>
+    <script src="/scripts/game.js"></script>
+    <script src="/scripts/script.js"></script>
   </body>
 </html>

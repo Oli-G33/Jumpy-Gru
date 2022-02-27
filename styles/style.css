@@ -10,9 +10,32 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: monospace;
 }
 
 canvas {
     background-color: blue;
     border: 20px solid #32a1ce;
+}
+
+.screen{
+  background-color: aqua;
+  width: 1500px;
+  height: 900px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  font: inherit;
+  font-size: 1.5em;
+  background-color: purple;
+  color: white;
+  border: 0;
+  padding: 2em;
+}
+h1, h3 {
+  font-size: 3em;
 }

@@ -9,7 +9,9 @@ class Game {
     this.score = 3;
     this.enableControls();
     this.traffic = []
+    console.log(this.traffic);
     this.spells = []
+    console.log(this.spells);
   }
 
   enableControls () {
@@ -45,7 +47,7 @@ class Game {
   }
 
   fireSpell() {
-    const spell = new Spell(this, this.player.x, this.player.y);
+    const spell = new Spell(this, this.player.x + this.player.width / 2, this.player.y);
     this.spells.push(spell);
   }
 
@@ -65,32 +67,62 @@ class Game {
   }
 
   runLogic () {
+    /*
+    if (this.lifes <= 0) {
+      // Reset method re-initializes player in starting position
+      // sets lives to starting value
+      // empties enemies array
+      // and so on
+      this.reset()
+    }
+    */
+   /*
+   Check if player has reached this.player.y < 50
+   if so, you win,
+   winning calls this.reset() and makes the speed of cars
+   and number of cars increment
+   */
     if (Math.random() < 0.01){
       this.generateTraffic();
     }
+
     for (const vehicle of this.traffic){
       vehicle.runLogic();
 
       const crash = vehicle.checkIntersection(this.player);
-
-      if (crash){
-        this.score -=1;
-      }
-      }
+      const outOfBounds = vehicle.x - vehicle.width > this.canvas.width;
       
-    for (const spell of this.spells) {
+       if (crash){
+         this.score -=1;
+      }
+
+       if (outOfBounds){
+        const indexOfVehicle= this.traffic.indexOf(vehicle);
+        this.traffic.splice(indexOfVehicle, 1);
+      }
+      }
+
+    
+      for (const spell of this.spells) {
       spell.runLogic();
 
       for (const vehicle of this.traffic) {
 
-      const crash = vehicle.checkIntersection(spell);
-
-      if (crash) {
-        const indexOfVehicle= this.traffic.indexOf(vehicle);
-        this.traffic.splice(indexOfVehicle, 1);
-        const indexOfSpell= this.spells.indexOf(vehicle);
-        this.spells.splice(indexOfSpell, 1);
+          const crash = vehicle.checkIntersection(spell);
+          
+        
+              if (crash) {
+                const indexOfVehicle= this.traffic.indexOf(vehicle);
+                this.traffic.splice(indexOfVehicle, 1);    
+                const indexOfSpell =this.spells.indexOf(spell);
+                this.spells.splice(indexOfSpell,1)
       }
+
+              
+             if (spell.y + spell.height < 0) {
+              const indexOfSpell =this.spells.indexOf(spell);
+              this.spells.splice(indexOfSpell,1)
+             }
     }
   }
 }
