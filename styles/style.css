@@ -5,8 +5,8 @@ body {
 
 body {
   margin: 0px;
-  background-color:gold;
-  background-size:50%;
+  background-image: url(/images/finalBackground.PNG);
+  background-size:cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,8 +14,9 @@ body {
 }
 
 canvas {
-    background-color: blue;
-    border: 20px solid #32a1ce;
+  background-image: url(/images/gameCanvas.PNG);
+  background-size:cover;
+  border: 10px solid green ;
 }
 
 .screen{
@@ -39,3 +40,10 @@ button{
 h1, h3 {
   font-size: 3em;
 }
+
+#start-screen{
+  background-image: url(/images/startImage.png);
+  background-size:cover;
+
+}
+
