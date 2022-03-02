@@ -46,7 +46,7 @@ class Game {
   }
 
   reset() {
-    
+    this.traffic = [];
     this.lives -= 1;
     this.player.x = 700;
     this.player.y = 832.5;
@@ -103,9 +103,9 @@ class Game {
 
   generateTraffic () {
     const trafficY = Math.floor(Math.random() * 5);
-    const trafficX = this.canvas.width - this.canvas.width;
-    const carRNG = Math.floor(Math.random() * 3);
-    const vehicle = new Vehicle(this, trafficX, vehicleY[trafficY], (Math.random() + 1.5), vehicleImage[carRNG]);
+    const trafficX = 0;
+    const carRNG = Math.floor(Math.random() * 7);
+    const vehicle = new Vehicle(this, trafficX, vehicleY[trafficY], (Math.random() + 2), vehicleImage[carRNG]);
     this.traffic.push(vehicle);
   }
 
@@ -136,7 +136,7 @@ class Game {
    winning calls this.reset() and makes the speed of cars
    and number of cars increment
    */ 
-    if (Math.random() < 0.01){
+    if (Math.random() < 0.025){
       this.generateTraffic();
     }
 
@@ -148,7 +148,6 @@ class Game {
       const splatSound = new Audio ('/sounds/splat.wav');
       
        if (crash){
-        console.log('crash');
          this.reset();
          splatSound.play();
       }
@@ -160,30 +159,6 @@ class Game {
       }
 
     
-      for (const spell of this.spells) {
-      //spell.runLogic();
-
-      for (const vehicle of this.traffic) {
-
-          const crash = vehicle.checkIntersection(spell);
-          
-        
-              if (crash) {
-                const indexOfVehicle= this.traffic.indexOf(vehicle);
-                this.traffic.splice(indexOfVehicle, 1);    
-                const indexOfSpell =this.spells.indexOf(spell);
-                this.spells.splice(indexOfSpell,1)
-      }
-
-              
-             if (spell.y + spell.height < 0) {
-              const indexOfSpell =this.spells.indexOf(spell);
-              this.spells.splice(indexOfSpell,1)
-             }
-    }
-   
-    }
-
     if (this.lives <= 0 ) {
       
       this.lose(); 
@@ -224,12 +199,3 @@ class Game {
     return Math.min(Math.max(n, min), max);
   }
   
-
-
-
-
-
-
-
-
-

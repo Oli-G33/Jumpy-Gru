@@ -1,3 +1,7 @@
+
+const flyImg = new Image();
+flyImg.src = './images/fly.jpg';
+
 class Fly {
     constructor (gameInstance, x, y){
         this.game = gameInstance;
@@ -18,17 +22,20 @@ class Fly {
           
         );
       }
-    
+
+
+    powerUp() {
+
+    }
 
     draw () {
 
-        const flyImg = new Image();
-        playerImg.src = '../images/fly.jpg';
-        playerImg.onload = () => {
-          context.drawImage(flyImg, Math.random() * 1500 + 1, Math.random() * 900 + 1, this.width, this.height);
-          
-        };
-      }
+        this.game.context.save();
+        this.game.context.drawImage(flyImg,this.x, this.y, this.width, this.height)
+        this.game.context.restore();
+
+         };
+      
 
       }
 

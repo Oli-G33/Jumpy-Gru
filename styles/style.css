@@ -16,7 +16,7 @@ body {
 canvas {
   background-image: url(/images/gameCanvas.PNG);
   background-size:cover;
-  border: 10px solid green ;
+  border: 20px solid green;
 }
 
 .screen{
@@ -42,8 +42,8 @@ h1, h3 {
 }
 
 #start-screen{
-  background-image: url(/images/startImage.png);
+  background-image: url(/images/startImage.jpg);
   background-size:cover;
-
+  border: 20px solid yellowgreen;
 }
 
