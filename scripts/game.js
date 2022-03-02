@@ -18,10 +18,10 @@ class Game {
     this.lives = 3;
     this.player = new Player(this);
     this.traffic = [];
-    console.log(this.traffic);
+    
     this.Lane2 = [];
     this.spells = [];
-    console.log(this.spells);
+    
 
     this.displayScreen('game')
     croak.play();
@@ -45,8 +45,12 @@ class Game {
     }
   }
 
-  reset(){
-
+  reset() {
+    
+    this.lives -= 1;
+    this.player.x = 700;
+    this.player.y = 832.5;
+        
   };
 
 
@@ -98,9 +102,10 @@ class Game {
   }
 
   generateTraffic () {
-    const trafficY = Math.random() * this.canvas.height - 75;
+    const trafficY = Math.floor(Math.random() * 5);
     const trafficX = this.canvas.width - this.canvas.width;
-    const vehicle = new Vehicle(this, trafficX, trafficY, (Math.random() + 1.5));
+    const carRNG = Math.floor(Math.random() * 3);
+    const vehicle = new Vehicle(this, trafficX, vehicleY[trafficY], (Math.random() + 1.5), vehicleImage[carRNG]);
     this.traffic.push(vehicle);
   }
 
@@ -114,10 +119,7 @@ class Game {
     });
   }
 
-  /*reset(){
-    if (this.lives)
-  }*/
-
+  
   runLogic () {
     /*
     if (this.lives <= 0) {
@@ -133,7 +135,7 @@ class Game {
    if so, you win,
    winning calls this.reset() and makes the speed of cars
    and number of cars increment
-   */
+   */ 
     if (Math.random() < 0.01){
       this.generateTraffic();
     }
@@ -146,7 +148,8 @@ class Game {
       const splatSound = new Audio ('/sounds/splat.wav');
       
        if (crash){
-         this.lives -= 1;
+        console.log('crash');
+         this.reset();
          splatSound.play();
       }
 
@@ -158,7 +161,7 @@ class Game {
 
     
       for (const spell of this.spells) {
-      spell.runLogic();
+      //spell.runLogic();
 
       for (const vehicle of this.traffic) {
 
@@ -203,7 +206,7 @@ class Game {
   draw () {
     this.context.clearRect(0, 0, 1500, 900);
     this.player.draw();
-    console.log(this.player.x, this.player.y);
+    
     this.drawLives();
     for (const vehicle of this.traffic){
       vehicle.draw();

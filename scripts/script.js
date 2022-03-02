@@ -8,8 +8,8 @@ const winScreenElement = document.getElementById("win-screen");
 const screenElements = {
     start: startScreenElement,
     game: gameScreenElement,
-    end: endScreenElement,
-    win: winScreenElement
+    end:  endScreenElement,
+    win:  winScreenElement
    }
 
 const game = new Game(canvas, screenElements);
