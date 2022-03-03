@@ -1,5 +1,5 @@
 
-const flyImg = new Image();
+/*const flyImg = new Image();
 flyImg.src = './images/fly.jpg';
 
 class Fly {
@@ -39,4 +39,4 @@ class Fly {
 
       }
 
-      const fly = new Fly;
+      const fly = new Fly;*/
