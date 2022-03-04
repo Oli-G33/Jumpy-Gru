@@ -1,5 +1,6 @@
 const croak = new Audio('/sounds/croak.wav');
 const splatSound = new Audio('/sounds/splat.wav');
+const backgroundMusic = new Audio('/sounds/backgroundMusic.mp3')
 
 class Game {
   constructor(canvas, screens) {
@@ -25,14 +26,13 @@ class Game {
     this.player = new Player(this);
     this.traffic = [
       new Vehicle(this, 0, vehicleY[0], 2, vehicleImage[1]),
-      new Vehicle(this, 0, vehicleY[1], 1, vehicleImage[0]),
+      new Vehicle(this, 400, vehicleY[1], 1, vehicleImage[0]),
       new Vehicle(this, 0, vehicleY[2], 1.5, vehicleImage[2]),
-      new Vehicle(this, 0, vehicleY[3], 1, vehicleImage[2]),
+      new Vehicle(this, 200, vehicleY[3], 1, vehicleImage[2]),
       new Vehicle(this, 0, vehicleY[4], 2, vehicleImage[3])
     ];
-    console.log(this.traffic);
+    backgroundMusic.play();
 
-    this.Lane2 = [];
     this.spells = [];
 
     this.displayScreen('game');
@@ -58,14 +58,18 @@ class Game {
   reset() {
     this.traffic = [
       new Vehicle(this, 0, vehicleY[0], 2, vehicleImage[1]),
-      new Vehicle(this, 0, vehicleY[1], 1, vehicleImage[0]),
+      new Vehicle(this, 400, vehicleY[1], 1, vehicleImage[0]),
       new Vehicle(this, 0, vehicleY[2], 1.5, vehicleImage[2]),
-      new Vehicle(this, 0, vehicleY[3], 1, vehicleImage[2]),
+      new Vehicle(this, 300, vehicleY[3], 1, vehicleImage[2]),
       new Vehicle(this, 0, vehicleY[4], 2, vehicleImage[3])
     ];
     this.lives -= 1;
     this.player.x = 700;
     this.player.y = 832.5;
+    backgroundMusic.play();
+    this.timer = 0;
+    this.drawTimer();
+    
   }
 
   win() {
@@ -75,7 +79,7 @@ class Game {
 
   enableControls() {
     window.addEventListener('keydown', (event) => {
-      if (this.running && this.timer > 3000) {
+      if (this.running && this.timer > 4000) {
         const code = event.code;
         switch (code) {
           case 'ArrowUp':
@@ -169,9 +173,9 @@ class Game {
     if (this.lives <= 0) {
       this.lose();
     }
-    if (this.player.y < 50) {
+    /*if (this.player.y < 50) {
       this.win();
-    }
+    } */
 
     /*
     if (this.lives <= 0) {
@@ -191,18 +195,22 @@ class Game {
   }
 
   drawTimer() {
-    const seconds = 3 - Math.floor(this.timer / 1000);
+    const seconds = 4 - Math.floor(this.timer / 1000);
     const message = seconds > 0 ? seconds : 'Go!';
     this.context.save();
+    this.context.fillStyle = "limegreen"
     this.context.font = '64px monospace';
-    this.context.fillText(message, 200, this.canvas.height / 2);
+    this.context.fillText(message, 700, this.canvas.height / 2);
     console.log(message);
     this.context.restore();
   }
 
   drawLives() {
-    this.context.font = '24px monospace';
+    this.context.save();
+    this.context.fillStyle = "white"
+    this.context.font = '36px monospace';
     this.context.fillText(`Lives: ${this.lives}`, 5, 30);
+    this.context.restore();
   }
 
   draw() {
@@ -216,7 +224,7 @@ class Game {
     for (const spell of this.spells) {
       spell.draw();
     }
-    if (this.timer < 4000) {
+    if (this.timer < 5000) {
       this.drawTimer();
     }
   }

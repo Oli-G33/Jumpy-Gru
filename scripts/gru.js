@@ -7,17 +7,18 @@ class Player {
       this.game = gameInstance;
       this.x = 700;
       this.y = 832.5;
-      this.width = 150;
-      this.height = 150;
       this.frame = 1;
+      this.spriteWidth = 250;
+      this.spriteHeight = 250;
+      this.width = this.spriteWidth / 5;
+      this.height = this.spriteHeight / 5;
     }
-  
     draw () {
       this.frame++;
       this.game.context.save();
-      //this.game.context.fillStyle = 'red';
-      //this.game.context.fillRect(this.x, this.y, this.width, this.height);
-      this.game.context.drawImage(gruImg, 70, 70, 250, 250, this.x, this.y, this.width, this.height);
+      this.game.context.fillStyle = 'red';
+      this.game.context.fillRect(this.x, this.y, this.width, this.height);
+      this.game.context.drawImage(gruImg, 0, 0, this.spriteWidth, this.spriteHeight, this.x-50, this.y-45, this.width * 3, this.height * 3);
       this.game.context.restore(); 
     }
   }
