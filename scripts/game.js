@@ -31,7 +31,7 @@ class Game {
       new Vehicle(this, 350, vehicleY[3], 1, vehicleImage[2]),
       new Vehicle(this, 300, vehicleY[4], 2, vehicleImage[3])
     ];
-    //backgroundMusic.play();
+    backgroundMusic.play();
 
     this.spells = [];
 
@@ -67,7 +67,7 @@ class Game {
     this.lives -= 1;
     this.player.x = 700;
     this.player.y = 832.5;
-    //backgroundMusic.play();
+    backgroundMusic.play();
     this.timer = 0;
     
 
