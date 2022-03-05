@@ -47,13 +47,7 @@ class Vehicle {
     //this.game.context.fillStyle = 'aqua';
 
     //this.game.context.fillRect(this.x, this.y, this.width, this.height);
-    this.game.context.drawImage(
-      this.vehicleImage,
-      this.x,
-      this.y,
-      this.width,
-      this.height
-    );
+    this.game.context.drawImage(this.vehicleImage, this.x, this.y, this.width, this.height );
     this.game.context.restore();
   }
 }

@@ -11,7 +11,8 @@ class Game {
     this.screen = screens;
     this.running = false;
     this.timer = 0;
-    // this.enableControls();
+    this.player = new Player(this);
+    this.enableControls();
   }
 
   countDown() {
@@ -20,18 +21,17 @@ class Game {
 
   start() {
     this.gameStart = Date.now();
-    this.enableControls();
     this.running = true;
+   // this.enableControls();
     this.lives = 3;
-    this.player = new Player(this);
     this.traffic = [
-      new Vehicle(this, 0, vehicleY[0], 2, vehicleImage[1]),
+      new Vehicle(this, 430, vehicleY[0], 2, vehicleImage[1]),
       new Vehicle(this, 400, vehicleY[1], 1, vehicleImage[0]),
       new Vehicle(this, 0, vehicleY[2], 1.5, vehicleImage[2]),
-      new Vehicle(this, 200, vehicleY[3], 1, vehicleImage[2]),
-      new Vehicle(this, 0, vehicleY[4], 2, vehicleImage[3])
+      new Vehicle(this, 350, vehicleY[3], 1, vehicleImage[2]),
+      new Vehicle(this, 300, vehicleY[4], 2, vehicleImage[3])
     ];
-    backgroundMusic.play();
+    //backgroundMusic.play();
 
     this.spells = [];
 
@@ -56,20 +56,21 @@ class Game {
   }
 
   reset() {
+    this.gameStart = Date.now();
     this.traffic = [
-      new Vehicle(this, 0, vehicleY[0], 2, vehicleImage[1]),
+      new Vehicle(this, 200, vehicleY[0], 2, vehicleImage[1]),
       new Vehicle(this, 400, vehicleY[1], 1, vehicleImage[0]),
-      new Vehicle(this, 0, vehicleY[2], 1.5, vehicleImage[2]),
-      new Vehicle(this, 300, vehicleY[3], 1, vehicleImage[2]),
-      new Vehicle(this, 0, vehicleY[4], 2, vehicleImage[3])
+      new Vehicle(this, 500, vehicleY[2], 1.5, vehicleImage[2]),
+      new Vehicle(this, 430, vehicleY[3], 1, vehicleImage[2]),
+      new Vehicle(this, 400, vehicleY[4], 2, vehicleImage[3])
     ];
     this.lives -= 1;
     this.player.x = 700;
     this.player.y = 832.5;
-    backgroundMusic.play();
+    //backgroundMusic.play();
     this.timer = 0;
-    this.drawTimer();
     
+
   }
 
   win() {
@@ -84,25 +85,44 @@ class Game {
         switch (code) {
           case 'ArrowUp':
             event.preventDefault();
-            this.player.y -= 69.2;
+            this.player.y -= 50;
+            this.player.moving = true;
+            this.player.frameX = 1;
+            this.player.frameY = 0;
+            // if (this.player.moving === false) this.player.frameX = 1;
+            // if (this.player.frameX === 1) this.player.frameX === 0;
             break;
+
           case 'ArrowDown':
             event.preventDefault();
-            this.player.y += 69.2;
+            this.player.y += 50;
+            this.player.moving = true;
+            this.player.frameY = 3;
+            // if (this.player.moving === false) this.player.frameX = 1;
+            //if (this.player.frameX === 1) this.player.frameX === 0;
             break;
+
           case 'ArrowRight':
             event.preventDefault();
-            this.player.x += 69.2;
+            this.player.x += 50;
+            this.player.moving = true;
+            this.player.frameY = 1;
+            //if (this.player.moving === false) this.player.frameX = 1;
+            //if (this.player.frameX === 1) this.player.frameX === 0;
             break;
+
           case 'ArrowLeft':
             event.preventDefault();
-            this.player.x -= 69.2;
+            this.player.x -= 50;
+            this.player.moving = true;
+            this.player.frameY = 2;
+            //if (this.player.moving === false) this.player.frameX = 1;
+            //if (this.player.frameX === 1) this.player.frameX === 0;
             break;
-          case 'Space':
-            event.preventDefault();
-            this.fireSpell();
-            break;
+
         }
+
+
       }
 
       this.player.x = Clamp(
@@ -117,16 +137,59 @@ class Game {
       );
       this.draw();
     });
+
+    window.addEventListener('keyup', (event) => {
+        if (this.running && this.timer > 4000) {
+          const code = event.code;
+          switch (code) {
+            case 'ArrowUp':
+              event.preventDefault();
+            
+              this.player.moving = false;
+              this.player.frameX = 1;
+              this.player.frameY = 0;
+              // if (this.player.moving === false) this.player.frameX = 1;
+              // if (this.player.frameX === 1) this.player.frameX === 0;
+              break;
+  
+            case 'ArrowDown':
+              event.preventDefault();
+             
+              this.player.moving = false;
+              this.player.frameY = 3;
+              // if (this.player.moving === false) this.player.frameX = 1;
+              //if (this.player.frameX === 1) this.player.frameX === 0;
+              break;
+  
+            case 'ArrowRight':
+              event.preventDefault();
+            
+              this.player.moving = false;
+              this.player.frameY = 1;
+              //if (this.player.moving === false) this.player.frameX = 1;
+              //if (this.player.frameX === 1) this.player.frameX === 0;
+              break;
+  
+            case 'ArrowLeft':
+              event.preventDefault();
+              
+              this.player.moving = false;
+              this.player.frameY = 2;
+              //if (this.player.moving === false) this.player.frameX = 1;
+              //if (this.player.frameX === 1) this.player.frameX === 0;
+              break;
+  
+          }
+  
+  
+        }
+  
+        
+        this.draw();
+      });
   }
 
-  fireSpell() {
-    const spell = new Spell(
-      this,
-      this.player.x + this.player.width / 2,
-      this.player.y
-    );
-    this.spells.push(spell);
-  }
+
 
   generateTraffic(y) {
     const trafficY = Math.floor(Math.random() * 5);
@@ -151,7 +214,7 @@ class Game {
     this.timer = Date.now() - this.gameStart;
 
     for (const vehicle of this.traffic) {
-      if (vehicle.x === 400) {
+      if (vehicle.x === 450) {
         this.generateTraffic(vehicle.y);
       }
       vehicle.runLogic();
@@ -173,9 +236,9 @@ class Game {
     if (this.lives <= 0) {
       this.lose();
     }
-    /*if (this.player.y < 50) {
+    if (this.player.y < 50) {
       this.win();
-    } */
+    }
 
     /*
     if (this.lives <= 0) {
