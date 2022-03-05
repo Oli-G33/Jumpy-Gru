@@ -13,13 +13,15 @@ class Game {
     this.timer = 0;
     this.player = new Player(this);
     this.enableControls();
-  }
+      }
 
   countDown() {
     // setTimeout(() => {console.log("this is the third message")setTimeout(() => {console.log("this is the third message")setTimeout(() => {console.log("this is the third message")}, 1000);}, 1000);}, 1000);
   }
 
   start() {
+    this.displayScreen('game');
+    console.log("startGame");
     this.gameStart = Date.now();
     this.running = true;
    // this.enableControls();
@@ -31,11 +33,11 @@ class Game {
       new Vehicle(this, 350, vehicleY[3], 1, vehicleImage[2]),
       new Vehicle(this, 300, vehicleY[4], 2, vehicleImage[3])
     ];
-    backgroundMusic.play();
+    //backgroundMusic.play();
 
     this.spells = [];
 
-    this.displayScreen('game');
+    
     croak.play();
     this.loop();
   }
@@ -76,6 +78,8 @@ class Game {
   win() {
     this.running = false;
     this.displayScreen('win');
+    this.player.x = 700;
+    this.player.y = 832.5;
   }
 
   enableControls() {
